@@ -1,0 +1,500 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+// Question 1
+class A {
+public:
+    A();
+};
+
+class B {
+public:
+    B();
+};
+
+class C : public B, public A {
+public:
+    C();
+};
+
+#include "Header.h"
+
+int main() {
+    C c1;
+    return 0;
+}
+
+#include "Header.h"
+
+A::A() {
+    cout << "A's constructor called" << endl;
+}
+
+B::B() {
+    cout << "B's constructor called" << endl;
+}
+
+C::C() {
+    cout << "C's constructor called" << endl;
+}
+
+// Question 2
+class person {
+public:
+    person(int x);
+};
+
+class faculty : public person {
+public:
+    faculty(int x);
+};
+
+class student : public person {
+public:
+    student(int x);
+};
+
+class TA : public faculty, public student {
+public:
+    TA(int x);
+};
+
+#include "header.h"
+#include <iostream>
+using namespace std;
+
+int main() {
+    TA ta1(30);
+    return 0;
+}
+
+#include "header.h"
+
+faculty::faculty(int x) : person(x) {
+    cout << "Faculty::Faculty(int ) called" << endl;
+}
+
+person::person(int x) {
+    cout << "Person::person(int ) called " << endl;
+}
+
+student::student(int x) : person(x) {
+    cout << "Student::Student(int ) called" << endl;
+}
+
+TA::TA(int x) : person(x), faculty(x) {
+    cout << "TA::TA(int ) called" << endl;
+}
+
+// Question 3
+class animal {
+public:
+    string name;
+    animal() {}
+    animal(string n) {
+        this->name = n;
+    }
+    void sound();
+};
+
+class Cat : public animal {
+public:
+    void sound();
+};
+
+class Dog : public animal {
+public:
+    void sound();
+};
+
+class Deer : public animal {
+public:
+    Deer() {}
+    void sound();
+};
+
+class tiger_family {
+public:
+    tiger_family() {}
+    void sound() {}
+};
+
+class tiger : public tiger_family {
+public:
+    tiger() {}
+    void sound();
+};
+
+class lion : public tiger_family {
+public:
+    lion() {}
+    void sound();
+};
+
+#include "header.h"
+
+int main() {
+    animal anm("cat");
+    Dog d;
+    Deer dr;
+    Cat c;
+    tiger_family tf;
+    lion l;
+    tiger t;
+
+    d.sound();
+    c.sound();
+    tf.sound();
+    l.sound();
+    t.sound();
+}
+
+#include "header.h"
+
+void Cat::sound() {
+    cout << "Sound of Cat is Meow" << endl;
+}
+
+void Dog::sound() {
+    cout << "Sound of Dog is Woof" << endl;
+}
+
+void Deer::sound() {
+    cout << "Sound of Deer is Fawn" << endl;
+}
+
+void tiger::sound() {
+    cout << "Sound of Tiger is Roar" << endl;
+}
+
+void lion::sound() {
+    cout << "Sound of Lion is Growl" << endl;
+}
+
+// Question 4
+class ship {
+protected:
+    string name;
+    int model;
+public:
+    ship();
+    void setname(string name, int model);
+    void getname(string& name, int& model);
+    virtual void print();
+};
+
+class cruiseship : public ship {
+protected:
+    int member;
+public:
+    cruiseship();
+    void setmem(string name, int model, int member);
+    void getmem(string& name, int& model, int& member);
+    virtual void print();
+};
+
+class cargoship : public ship {
+protected:
+    int maxtons;
+public:
+    void setmaxtons(string name, int model, int maxtons);
+    virtual void print();
+};
+
+#include<iostream>
+using namespace std;
+
+int main() {
+    int size;
+    string naam;
+    int saal, mem, w;
+
+    cout << "Enter the Number of Ships: ";
+    cin >> size;
+
+    ship s;
+    cruiseship cs1;
+    cargoship cs2;
+
+    ship* obj = new ship[size];
+    cruiseship* aa = new cruiseship[size];
+    cargoship* bb = new cargoship[size];
+
+    for (int x = 0; x < size; x++) {
+        cout << "Enter the Name of Ship " << x + 1 << ": ";
+        cin >> naam;
+        cout << "Enter the Year that the Ship " << x + 1 << " was Built: ";
+        cin >> saal;
+        cout << "Enter the Maximum Number of Passengers of CruiseShip " << x + 1 << ": ";
+        cin >> mem;
+        cout << "Enter the Capacity in Tonnage of CargoShip " << x + 1 << ": ";
+        cin >> w;
+
+        aa[x].setmem(naam, saal, mem);
+        s.print();
+        cs1.print();
+        cs2.print();
+    }
+
+    return 0;
+}
+
+#include<iostream>
+using namespace std;
+
+ship::ship() {
+    name = "";
+    model = 0;
+}
+
+void ship::setname(string name, int model) {
+    this->name = name;
+    this->model = model;
+}
+
+void ship::getname(string& name, int& model) {
+    this->name = name;
+    this->model = model;
+}
+
+void ship::print() {
+    cout << "Name of Ship: " << name << ", Model year: " << model << endl;
+}
+
+cruiseship::cruiseship() {
+    member = 0;
+}
+
+void cruiseship::setmem(string name, int model, int member) {
+    this->name = name;
+    this->model = model;
+    this->member = member;
+}
+
+void cruiseship::getmem(string& name, int& model, int& member) {
+    this->name = name;
+    this->model = model;
+    this->member = member;
+}
+
+void cruiseship::print() {
+    cout << "Members on ship: " << member << ", Name of ship: " << name << endl;
+}
+
+void cargoship::setmaxtons(string name, int model, int maxtons) {
+    this->name = name;
+    this->model = model;
+    this->maxtons = maxtons;
+}
+
+void cargoship::print() {
+    cout << "Maximum capacity of ship: " << maxtons << ", Name of ship: " << name << endl;
+}
+
+// Question 5
+class Polygon {
+protected:
+    float length, width;
+public:
+    virtual float Area() { return 0; }
+    virtual float Perimeter() { return 0; }
+    virtual void Display() {}
+    ~Polygon() {
+        length = width = 0;
+    }
+};
+
+class Square : public Polygon {
+public:
+    Square() {}
+    Square(float l, float w) {
+        this->length = l;
+        this->width = w;
+    }
+    float Area() { return (length * length); }
+    float Perimeter() { return (4 * length); }
+    void Display() {
+        cout << "Area of Square: " << Area() << endl;
+        cout << "Perimeter of Square: " << Perimeter() << endl;
+    }
+};
+
+class Rectangle : public Polygon {
+public:
+    Rectangle() {}
+    Rectangle(float l, float w) {
+        this->length = l;
+        this->width = w;
+    }
+    float Area() { return (length * width); }
+    float Perimeter() { return (2 * (length + width)); }
+    void Display() {
+        cout << "Area of Rectangle: " << Area() << endl;
+        cout << "Perimeter of Rectangle: " << Perimeter() << endl;
+    }
+};
+
+class Triangle : public Polygon {
+protected:
+    float height;
+public:
+    Triangle() {}
+    Triangle(float l, float w, float h) {
+        this->length = l;
+        this->width = w;
+        this->height = h;
+    }
+    float Area() { return ((length * width) / 2); }
+    float Perimeter() { return (length + width + height); }
+    void Display() {
+        cout << "Area of Triangle: " << Area() << endl;
+        cout << "Perimeter of Triangle: " << Perimeter() << endl;
+    }
+};
+
+int main() {
+    float l, w, h;
+    cout << "Please enter the length: ";
+    cin >> l;
+    cout << "Please enter the width: ";
+    cin >> w;
+    cout << "Please enter the height: ";
+    cin >> h;
+    Polygon* ptr;
+    Square s(l, w);
+    Rectangle rec(l, w);
+    Triangle tri(l, w, h);
+    ptr = &s;
+    ptr->Display();
+    ptr = &rec;
+    ptr->Display();
+    ptr = &tri;
+    ptr->Display();
+    return 0;
+}
+
+// Question 6
+class bill {
+protected:
+    int unit, per_unit_cost;
+    float calBill;
+public:
+    bill() {
+        unit = per_unit_cost = 0;
+        calBill = 0.0;
+    }
+    void setData(int unit, int puc) {
+        this->unit = unit;
+        this->per_unit_cost = puc;
+    }
+    float Monthly_bill() {
+        calBill = unit * per_unit_cost;
+        return calBill;
+    }
+    void Bill_display() {
+        cout << "Rs: " << Monthly_bill() << endl;
+    }
+    virtual ~bill() {
+        unit = per_unit_cost = 0;
+        calBill = 0.0;
+    }
+};
+
+class January_Bill : public bill {
+public:
+    ~January_Bill() {
+        unit = per_unit_cost = 0;
+        calBill = 0.0;
+    }
+};
+
+class Febuary_Bill : public bill {
+public:
+    ~Febuary_Bill() {
+        unit = per_unit_cost = 0;
+        calBill = 0.0;
+    }
+};
+
+class March_Bill : public bill {
+public:
+    ~March_Bill() {
+        unit = per_unit_cost = 0;
+        calBill = 0.0;
+    }
+};
+
+class April_Bill : public bill {
+public:
+    ~April_Bill() {
+        unit = per_unit_cost = 0;
+        calBill = 0.0;
+    }
+};
+
+class May_Bill : public bill {
+public:
+    ~May_Bill() {
+        unit = per_unit_cost = 0;
+        calBill = 0.0;
+    }
+};
+
+int main() {
+    bill* bptr;
+    January_Bill jb;
+    Febuary_Bill fb;
+    March_Bill mb;
+    April_Bill ab;
+    May_Bill mb1;
+
+    int ju, jp, fu, fp, mu, mp, au, ap, mu1, mu2;
+    cout << "Enter the Units of January: ";
+    cin >> ju;
+    cout << "Enter the Cost of per Unit in January: ";
+    cin >> jp;
+    cout << "Enter the Units of February: ";
+    cin >> fu;
+    cout << "Enter the Cost of per Unit in February: ";
+    cin >> fp;
+    cout << "Enter the Units of March: ";
+    cin >> mu;
+    cout << "Enter the Cost of per Unit of March: ";
+    cin >> mp;
+    cout << "Enter the Units of April: ";
+    cin >> au;
+    cout << "Enter the Cost of per Unit of April: ";
+    cin >> ap;
+    cout << "Enter the Units Bill of May: ";
+    cin >> mu1;
+    cout << "Enter the Cost of per Unit Bill of May: ";
+    cin >> mu2;
+
+    cout << "Bill for month January" << endl;
+    bptr = &jb;
+    bptr->setData(ju, jp);
+    bptr->Bill_display();
+
+    cout << "Bill for month February" << endl;
+    bptr = &fb;
+    bptr->setData(fu, fp);
+    bptr->Bill_display();
+
+    cout << "Bill for month March" << endl;
+    bptr = &mb;
+    bptr->setData(mu, mp);
+    bptr->Bill_display();
+
+    cout << "Bill for month April" << endl;
+    bptr = &ab;
+    bptr->setData(au, ap);
+    bptr->Bill_display();
+
+    cout << "Bill for month May" << endl;
+    bptr = &mb;
+    bptr->setData(mu1, mu2);
+    bptr->Bill_display();
+
+    return 0;
+}
